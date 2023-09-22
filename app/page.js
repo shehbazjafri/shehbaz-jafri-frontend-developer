@@ -9,16 +9,20 @@ import { ArrowDownIcon } from '@heroicons/react/24/solid';
 
 export default function Home() {
   const [capsules, setCapsules] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchCapsules = async (filters) => {
     try {
+      setIsLoading(true);
       const queryString = new URLSearchParams(filters).toString();
       const apiUrl = `http://localhost:3000/api/capsules?${queryString}`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       setCapsules(data?.capsules?.docs || []);
+      setIsLoading(false);
     } catch (error) {
       console.error('Error fetching capsules:', error);
+      setIsLoading(false);
     }
   };
 
@@ -47,10 +51,10 @@ export default function Home() {
           <p className="font-medium text-secondaryBlue mt-3 mb-12">
             Search and explore latest information about SpaceX’s capsules
           </p>
-          <CapsuleSearchForm onSubmit={fetchCapsules} />
+          <CapsuleSearchForm onSubmit={fetchCapsules} isLoading={isLoading} />
         </div>
-        <div className="bg-white relative z-20 mt-10 mx-10">
-          <CapsuleGrid capsules={capsules} />
+        <div className="bg-white relative z-20 w-full pt-10 px-20 pb-10">
+          <CapsuleGrid capsules={capsules} isLoading={isLoading} />
         </div>
       </section>
     </main>

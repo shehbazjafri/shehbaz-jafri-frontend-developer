@@ -12,7 +12,7 @@ import { Input } from '@/app/_components/ui/input';
 import { Button } from '@/app/_components/ui/button';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
-const CapsuleSearchForm = ({ onSubmit }) => {
+const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
   const [filters, setFilters] = useState({
     status: null,
     serial: '',
@@ -33,7 +33,7 @@ const CapsuleSearchForm = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-x-7">
+    <form onSubmit={handleSubmit} className="flex items-center gap-x-7 py-1">
       <div className="flex flex-col items-start">
         <label
           htmlFor="status"
@@ -94,6 +94,7 @@ const CapsuleSearchForm = ({ onSubmit }) => {
         type="submit"
         variant="outline"
         className="bg-textBlue text-white self-end"
+        disabled={isLoading}
       >
         Search
         <MagnifyingGlassIcon className="h-5 w-5 ml-2" />
