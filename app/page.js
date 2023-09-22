@@ -40,7 +40,7 @@ export default function Home() {
         </div>
         <Image src={spaceBg} alt="space" className="w-[500px] h-[460px]" />
       </section>
-      <section className="relative mt-24 h-screen flex flex-col text-center">
+      <section className="relative mt-24 h-screen flex flex-col text-center items-center">
         <div className="absolute inset-0 bg-white transparent transform -skew-y-2 z-10"></div>
         <div className="bg-white relative z-20 mt-24">
           <h2 className="font-semibold text-4xl">Capsules</h2>
@@ -49,7 +49,7 @@ export default function Home() {
           </p>
           <CapsuleSearchForm onSubmit={fetchCapsules} />
         </div>
-        <div className="bg-white relative z-20">
+        <div className="bg-white relative z-20 mt-10 mx-10">
           <CapsuleGrid capsules={capsules} />
         </div>
       </section>

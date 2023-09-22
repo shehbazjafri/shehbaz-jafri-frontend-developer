@@ -1,11 +1,21 @@
 'use client';
 
 import { useState } from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/app/_components/ui/select';
+import { Input } from '@/app/_components/ui/input';
+import { Button } from '@/app/_components/ui/button';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 const CapsuleSearchForm = ({ onSubmit }) => {
   const [filters, setFilters] = useState({
-    status: '',
-    original_launch: '',
+    status: null,
+    serial: '',
     type: '',
   });
 
@@ -23,35 +33,71 @@ const CapsuleSearchForm = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Status:
-        <input
+    <form onSubmit={handleSubmit} className="flex items-center gap-x-7">
+      <div className="flex flex-col items-start">
+        <label
+          htmlFor="status"
+          className="text-secondaryBlue font-normal text-sm"
+        >
+          Status
+        </label>
+        <Select
+          onValueChange={(value) => {
+            setFilters({
+              ...filters,
+              status: value,
+            });
+          }}
+        >
+          <SelectTrigger className="w-[30rem]">
+            <SelectValue placeholder="Select Status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="active">Active</SelectItem>
+            <SelectItem value="retired">Retired</SelectItem>
+            <SelectItem value="unknown">Unknown</SelectItem>
+            <SelectItem value="destroyed">Destroyed</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex flex-col items-start">
+        <label
+          htmlFor="serial"
+          className="text-secondaryBlue font-normal text-sm"
+        >
+          Serial
+        </label>
+        <Input
           type="text"
-          name="status"
-          value={filters.status}
+          name="serial"
+          placeholder="Serial"
+          value={filters.serial}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Original Launch:
-        <input
-          type="text"
-          name="original_launch"
-          value={filters.original_launch}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Type:
-        <input
+      </div>
+      <div className="flex flex-col items-start">
+        <label
+          htmlFor="type"
+          className="text-secondaryBlue font-normal text-sm"
+        >
+          Type
+        </label>
+        <Input
           type="text"
           name="type"
+          placeholder="Type"
           value={filters.type}
           onChange={handleChange}
         />
-      </label>
-      <button type="submit">Search</button>
+      </div>
+      <Button
+        type="submit"
+        variant="outline"
+        className="bg-textBlue text-white self-end"
+      >
+        Search
+        <MagnifyingGlassIcon className="h-5 w-5 ml-2" />
+      </Button>
     </form>
   );
 };
