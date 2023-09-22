@@ -5,9 +5,10 @@ import Image from 'next/image';
 import spaceBg from '@/app/_assets/_images/outer-space.svg';
 import CapsuleGrid from './_components/capsule-grid';
 import CapsuleSearchForm from '@/app/_components/capsule-search-form';
+import { ArrowDownIcon } from '@heroicons/react/24/solid';
 
 export default function Home() {
-  const [capsules, setCapsules] = useState([]); // const data = await getCapsules();
+  const [capsules, setCapsules] = useState([]);
 
   const fetchCapsules = async (filters) => {
     try {
@@ -22,22 +23,33 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col justify-between p-5">
-      <section className="flex justify-between bg-skyBlue rounded-3xl p-14 shadow-sm">
-        <div className="flex flex-col justify-between">
-          <h1 className="text-6xl font-extrabold text-black">Space Showcase</h1>
-          <p className="text-2xl font-medium text-black">
-            A showcase of space exploration and tech.
+    <main className="flex min-h-screen flex-col">
+      <section className="flex justify-between items-center rounded-3xl px-32 pt-14 shadow-sm">
+        <div className="flex flex-col">
+          <h1 className="text-6xl font-bold text-white">
+            Welcome to the
+            <br />
+            <span className="text-textBlue">space showcase.</span>
+          </h1>
+          <p className="text-lg font-extralight text-white mt-10 w-[80%]">
+            Embark on a voyage through SpaceX&rsquo;s technological wonders.
+            Join us as we uncover the engineering brilliance behind these
+            spacecraft, forging the path to new horizons in the cosmos.
           </p>
+          <ArrowDownIcon className="text-white w-10 h-10 mt-10" />
         </div>
         <Image src={spaceBg} alt="space" className="w-[500px] h-[460px]" />
       </section>
-      <section className="bg-white rounded-3xl p-5 mt-4">
-        <div>
-          <p className="font-medium">Search Capsules</p>
+      <section className="relative mt-24 h-screen flex flex-col text-center">
+        <div className="absolute inset-0 bg-white transparent transform -skew-y-2 z-10"></div>
+        <div className="bg-white relative z-20 mt-24">
+          <h2 className="font-semibold text-4xl">Capsules</h2>
+          <p className="font-medium text-secondaryBlue mt-3 mb-12">
+            Search and explore latest information about SpaceX’s capsules
+          </p>
           <CapsuleSearchForm onSubmit={fetchCapsules} />
         </div>
-        <div>
+        <div className="bg-white relative z-20">
           <CapsuleGrid capsules={capsules} />
         </div>
       </section>
