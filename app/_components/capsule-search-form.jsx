@@ -35,13 +35,10 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col lg:flex-row items-start lg:items-center gap-4 py-1"
+      className="flex flex-col bg-whitish rounded-lg px-5 py-5 lg:flex-row items-start lg:items-center gap-4"
     >
       <div className="flex flex-col items-start">
-        <label
-          htmlFor="status"
-          className="text-secondaryBlue font-normal text-sm"
-        >
+        <label htmlFor="status" className="text-textGrey font-medium text-sm">
           Status
         </label>
         <Select
@@ -53,7 +50,11 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
             });
           }}
         >
-          <SelectTrigger className="w-[15rem] lg:w-[30rem]">
+          <SelectTrigger
+            className={`w-[15rem] bg-white ${
+              filters?.status ? '' : 'text-gray-400'
+            }`}
+          >
             <SelectValue placeholder="Select Status" />
           </SelectTrigger>
           <SelectContent>
@@ -65,33 +66,29 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
         </Select>
       </div>
       <div className="flex flex-col items-start">
-        <label
-          htmlFor="serial"
-          className="text-secondaryBlue font-normal text-sm"
-        >
+        <label htmlFor="serial" className="text-textGrey font-medium text-sm">
           Serial
         </label>
         <Input
           id="serial"
           type="text"
           name="serial"
-          placeholder="Serial"
+          placeholder="Serial number"
+          className="placeholder:text-grey-600"
           value={filters.serial}
           onChange={handleChange}
         />
       </div>
       <div className="flex flex-col items-start">
-        <label
-          htmlFor="type"
-          className="text-secondaryBlue font-normal text-sm"
-        >
+        <label htmlFor="type" className="text-textGrey font-medium text-sm">
           Type
         </label>
         <Input
           id="type"
           type="text"
           name="type"
-          placeholder="Type"
+          placeholder="Capsule type"
+          className="placeholder:text-grey-600"
           value={filters.type}
           onChange={handleChange}
         />
@@ -103,7 +100,7 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
         disabled={isLoading}
       >
         Search
-        <MagnifyingGlassIcon className="h-5 w-5 ml-2" />
+        <MagnifyingGlassIcon className="h-4 w-4 ml-2" />
       </Button>
     </form>
   );

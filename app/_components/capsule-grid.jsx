@@ -44,6 +44,16 @@ const CapsuleGrid = ({ capsules, isLoading }) => {
     );
   }
 
+  if (!capsules.length) {
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <p className="text-2xl font-semibold text-textGrey">
+          No Capsules Found
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="grid gap-4 grid-cols-1 lg:grid-cols-4 2xl:grid-cols-6">
       {capsules.map((capsule) => (

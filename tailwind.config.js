@@ -22,6 +22,8 @@ module.exports = {
         textBlue: '#6691FF',
         primaryBlue: '#1E67D3',
         secondaryBlue: '#737288',
+        textGrey: '#333333',
+        whitish: '#F2F2F2',
         bgBlur: 'rgba(34, 34, 34, 0.75)',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
