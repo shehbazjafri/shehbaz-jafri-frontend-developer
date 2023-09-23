@@ -1,29 +1,81 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import spaceBg from '@/app/_assets/_images/outer-space.svg';
 import CapsuleGrid from './_components/capsule-grid';
 import CapsuleSearchForm from '@/app/_components/capsule-search-form';
 import { ArrowDownIcon } from '@heroicons/react/24/solid';
 
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  const pageNumbers = Array.from(
+    { length: totalPages },
+    (_, index) => index + 1
+  );
+
+  return (
+    <div className="mt-4">
+      <nav className="flex justify-center">
+        <ul className="flex space-x-2">
+          {pageNumbers.map((page) => (
+            <li key={page}>
+              <button
+                className={`px-3 py-2 ${
+                  page === currentPage
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-300 text-gray-700'
+                } rounded-md cursor-pointer`}
+                onClick={() => onPageChange(page)}
+              >
+                {page}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  );
+};
+
 export default function Home() {
   const [capsules, setCapsules] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1); // Current page
+  const [totalPages, setTotalPages] = useState(1); // Total number of pages
+  const [filters, setFilters] = useState({
+    status: '',
+    serial: '',
+    type: '',
+  });
 
-  const fetchCapsules = async (filters) => {
+  const fetchCapsules = async (filters, page = 1) => {
     try {
       setIsLoading(true);
-      const queryString = new URLSearchParams(filters).toString();
+      const queryString = new URLSearchParams({ ...filters, page }).toString();
       const apiUrl = `http://localhost:3000/api/capsules?${queryString}`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       setCapsules(data?.capsules?.docs || []);
+      setTotalPages(data?.capsules?.totalPages || 1); // Update total pages
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching capsules:', error);
       setIsLoading(false);
     }
+  };
+
+  // Fetch capsules when the page loads or filters change
+  useEffect(() => {
+    fetchCapsules(filters, page);
+  }, [page, filters]);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+
+  const handleSearchSubmit = (filters) => {
+    setFilters(filters);
+    setPage(1); // Reset page to 1 when filters change
   };
 
   return (
@@ -51,10 +103,20 @@ export default function Home() {
           <p className="font-medium text-secondaryBlue mt-3 mb-12">
             Search and explore latest information about SpaceX’s capsules
           </p>
-          <CapsuleSearchForm onSubmit={fetchCapsules} isLoading={isLoading} />
+          <CapsuleSearchForm
+            onSubmit={handleSearchSubmit}
+            isLoading={isLoading}
+          />
         </div>
         <div className="bg-white relative z-20 w-full pt-10 px-20 pb-10">
           <CapsuleGrid capsules={capsules} isLoading={isLoading} />
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
         </div>
       </section>
     </main>

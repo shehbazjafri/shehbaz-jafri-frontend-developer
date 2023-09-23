@@ -14,7 +14,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
   const [filters, setFilters] = useState({
-    status: null,
+    status: '',
     serial: '',
     type: '',
   });

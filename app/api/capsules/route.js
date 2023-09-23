@@ -24,7 +24,7 @@ export async function GET(request) {
       query: filter,
       options: {
         page,
-        limit: 20,
+        limit: 10,
       },
     };
     const response = await fetch(apiUrl.toString(), {
