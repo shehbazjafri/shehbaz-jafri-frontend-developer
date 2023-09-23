@@ -78,6 +78,11 @@ export default function Home() {
     setPage(1); // Reset page to 1 when filters change
   };
 
+  const handleScrollToCapsules = () => {
+    const capsulesSection = document.querySelector('#capsules');
+    capsulesSection.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <main className="flex min-h-screen flex-col overflow-hidden">
       <section className="flex flex-col-reverse lg:flex-row justify-between items-start lg:items-center rounded-3xl lg:px-32 pt-14 shadow-sm">
@@ -92,7 +97,10 @@ export default function Home() {
             Join us as we uncover the engineering brilliance behind these
             spacecraft, forging the path to new horizons in the cosmos.
           </p>
-          <ArrowDownIcon className="text-white w-5 h-5 lg:w-10 lg:h-10 mt-10" />
+          <ArrowDownIcon
+            className="text-white w-5 h-5 lg:w-10 lg:h-10 mt-10 cursor-pointer"
+            onClick={handleScrollToCapsules}
+          />
         </div>
         <Image
           src={spaceBg}
@@ -100,7 +108,10 @@ export default function Home() {
           className="w-full h-[15rem] lg:w-[500px] lg:h-[460px]"
         />
       </section>
-      <section className="relative mt-24 h-full flex flex-col text-center items-center">
+      <section
+        id="capsules"
+        className="relative mt-24 h-full flex flex-col text-center items-center"
+      >
         <div className="absolute inset-0 bg-white transparent transform -skew-y-2 z-10"></div>
         <div className="bg-white relative z-20 mt-10 mx-5 lg:mx-0 lg:mt-24">
           <h2 className="font-semibold text-2xl lg:text-4xl">Capsules</h2>
