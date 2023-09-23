@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import spaceBg from '@/app/_assets/_images/outer-space.svg';
+import spaceBg from '@/public/_assets/_images/outer-space.svg';
 import CapsuleGrid from './_components/capsule-grid';
 import CapsuleSearchForm from '@/app/_components/capsule-search-form';
 import { ArrowDownIcon } from '@heroicons/react/24/solid';
@@ -48,18 +48,22 @@ export default function Home() {
     type: '',
   });
 
+  const updateCapsules = (data) => {
+    setCapsules(data?.capsules?.docs || []);
+    setTotalPages(data?.capsules?.totalPages || 1); // Update total pages
+  };
+
   const fetchCapsules = async (filters, page = 1) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       const queryString = new URLSearchParams({ ...filters, page }).toString();
       const apiUrl = `/api/capsules?${queryString}`;
       const response = await fetch(apiUrl);
       const data = await response.json();
-      setCapsules(data?.capsules?.docs || []);
-      setTotalPages(data?.capsules?.totalPages || 1); // Update total pages
-      setIsLoading(false);
+      updateCapsules(data);
     } catch (error) {
       console.error('Error fetching capsules:', error);
+    } finally {
       setIsLoading(false);
     }
   };

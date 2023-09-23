@@ -13,6 +13,16 @@ import {
   DialogTrigger,
 } from '@/app/_components/ui/dialog';
 
+const fieldsToDisplay = [
+  { label: 'Serial', key: 'serial' },
+  { label: 'Type', key: 'type' },
+  { label: 'Status', key: 'status' },
+  { label: 'Reuse Count', key: 'reuse_count' },
+  { label: 'Water Landings', key: 'water_landings' },
+  { label: 'Land Landings', key: 'land_landings' },
+  { label: 'Last Update', key: 'last_update' },
+];
+
 const StatusTag = ({ status }) => {
   const statusColor = {
     active: 'bg-green-500',
@@ -32,14 +42,20 @@ const StatusTag = ({ status }) => {
 
 const CapsuleGrid = ({ capsules, isLoading }) => {
   if (isLoading) {
+    const numLoadingElements = 6; // Define the number of loading elements you want
+    const loadingElements = Array.from(
+      { length: numLoadingElements },
+      (_, index) => (
+        <div
+          key={index}
+          className="animate-pulse bg-gray-200 rounded-md h-36 w-full"
+        ></div>
+      )
+    );
+
     return (
       <div className="grid grid-cols-1 lg:grid-cols-4 2xl:grid-cols-6 gap-4">
-        <div className="animate-pulse bg-gray-200 rounded-md h-36 w-full"></div>
-        <div className="animate-pulse bg-gray-200 rounded-md h-36 w-full"></div>
-        <div className="animate-pulse bg-gray-200 rounded-md h-36 w-full"></div>
-        <div className="animate-pulse bg-gray-200 rounded-md h-36 w-full"></div>
-        <div className="animate-pulse bg-gray-200 rounded-md h-36 w-full"></div>
-        <div className="animate-pulse bg-gray-200 rounded-md h-36 w-full"></div>
+        {loadingElements}
       </div>
     );
   }
@@ -88,44 +104,20 @@ const CapsuleGrid = ({ capsules, isLoading }) => {
                 {capsule.serial} {capsule.type}
               </DialogTitle>
               <DialogDescription className="flex flex-col gap-y-4 pt-4">
-                <div className="flex gap-x-1">
-                  <label className="font-normal">Serial:</label>
-                  <p className="text-black font-medium">{capsule.serial}</p>
-                </div>
-                <div className="flex gap-x-1">
-                  <label className="font-normal">Type:</label>
-                  <p className="text-black font-medium">{capsule.type}</p>
-                </div>
-                <div className="flex gap-x-1">
-                  <label className="font-normal">Status:</label>
-                  <p>
-                    <StatusTag status={capsule.status} />
-                  </p>
-                </div>
-                <div className="flex gap-x-1">
-                  <label className="font-normal">Reuse Count:</label>
-                  <p className="text-black font-medium">
-                    {capsule.reuse_count}
-                  </p>
-                </div>
-                <div className="flex gap-x-1">
-                  <label className="font-normal">Water Landings:</label>
-                  <p className="text-black font-medium">
-                    {capsule.water_landings}
-                  </p>
-                </div>
-                <div className="flex gap-x-1">
-                  <label className="font-normal">Land Landings:</label>
-                  <p className="text-black font-medium">
-                    {capsule.land_landings}
-                  </p>
-                </div>
-                <div className="flex gap-x-1">
-                  <label className="font-normal">Last Update:</label>
-                  <p className="text-black font-medium">
-                    {capsule.last_update || '-'}
-                  </p>
-                </div>
+                {fieldsToDisplay.map((fieldInfo) => (
+                  <div key={fieldInfo.key} className="flex gap-x-1">
+                    <label className="font-normal">{fieldInfo.label}:</label>
+                    {fieldInfo.key === 'status' ? (
+                      <p>
+                        <StatusTag status={capsule[fieldInfo.key]} />
+                      </p>
+                    ) : (
+                      <p className="text-black font-medium">
+                        {capsule[fieldInfo.key]}
+                      </p>
+                    )}
+                  </div>
+                ))}
               </DialogDescription>
             </DialogHeader>
           </DialogContent>

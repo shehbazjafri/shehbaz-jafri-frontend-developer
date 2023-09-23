@@ -12,12 +12,21 @@ import { Input } from '@/app/_components/ui/input';
 import { Button } from '@/app/_components/ui/button';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
+const statusOptions = ['Active', 'Retired', 'Unknown', 'Destroyed'];
+
 const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
   const [filters, setFilters] = useState({
     status: '',
     serial: '',
     type: '',
   });
+
+  const handleStatusChange = (value) => {
+    setFilters({
+      ...filters,
+      status: value,
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,15 +50,7 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
         <label htmlFor="status" className="text-textGrey font-medium text-sm">
           Status
         </label>
-        <Select
-          id="status"
-          onValueChange={(value) => {
-            setFilters({
-              ...filters,
-              status: value,
-            });
-          }}
-        >
+        <Select id="status" onValueChange={handleStatusChange}>
           <SelectTrigger
             className={`w-[15rem] bg-white ${
               filters?.status ? '' : 'text-gray-400'
@@ -58,10 +59,14 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
             <SelectValue placeholder="Select Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="active">Active</SelectItem>
-            <SelectItem value="retired">Retired</SelectItem>
-            <SelectItem value="unknown">Unknown</SelectItem>
-            <SelectItem value="destroyed">Destroyed</SelectItem>
+            {statusOptions.map((option) => (
+              <SelectItem
+                key={option.toLowerCase()}
+                value={option.toLowerCase()}
+              >
+                {option}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
