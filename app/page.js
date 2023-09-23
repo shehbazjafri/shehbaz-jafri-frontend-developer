@@ -96,7 +96,7 @@ export default function Home() {
         </div>
         <Image src={spaceBg} alt="space" className="w-[500px] h-[460px]" />
       </section>
-      <section className="relative mt-24 h-screen flex flex-col text-center items-center">
+      <section className="relative mt-24 h-full flex flex-col text-center items-center">
         <div className="absolute inset-0 bg-white transparent transform -skew-y-2 z-10"></div>
         <div className="bg-white relative z-20 mt-24">
           <h2 className="font-semibold text-4xl">Capsules</h2>
@@ -108,7 +108,7 @@ export default function Home() {
             isLoading={isLoading}
           />
         </div>
-        <div className="bg-white relative z-20 w-full pt-10 px-20 pb-10">
+        <div className="bg-transparent relative z-20 w-full pt-10 px-20 pb-10">
           <CapsuleGrid capsules={capsules} isLoading={isLoading} />
           {totalPages > 1 && (
             <Pagination
@@ -119,6 +119,12 @@ export default function Home() {
           )}
         </div>
       </section>
+      <footer className="bg-bgBlue text-white text-center py-10">
+        <p className="text-sm">
+          Space Showcase. All rights reserved. &copy; Shehbaz Jafri{' '}
+          {new Date().getFullYear()}
+        </p>
+      </footer>
     </main>
   );
 }
