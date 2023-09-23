@@ -2,8 +2,8 @@
 ### SpaceX Showcase
 
 A web application built with Next.js to showcase SpaceX capsules and their details. Explore and learn about SpaceX's technology.
+![rec2](https://github.com/shehbazjafri/shehbaz-jafri-frontend-developer/assets/19728508/3eea386a-b3f9-4e35-b900-64d77bf79ddd)
 
-![rec1](https://github.com/shehbazjafri/shehbaz-jafri-frontend-developer/assets/19728508/db408053-1b9f-4947-8ca5-b46fb7eef841)
 
 ### Check It Out
 https://shehbaz-jafri-frontend-developer.vercel.app
