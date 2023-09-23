@@ -13,6 +13,23 @@ import {
   DialogTrigger,
 } from '@/app/_components/ui/dialog';
 
+const StatusTag = ({ status }) => {
+  const statusColor = {
+    active: 'bg-green-500',
+    retired: 'bg-yellow-500',
+    unknown: 'bg-gray-500',
+    destroyed: 'bg-red-500',
+  };
+
+  return (
+    <span
+      className={`inline-block px-2 py-1 text-xs font-semibold text-white rounded-md ${statusColor[status]}`}
+    >
+      {status}
+    </span>
+  );
+};
+
 const CapsuleGrid = ({ capsules, isLoading }) => {
   if (isLoading) {
     return (
@@ -41,11 +58,17 @@ const CapsuleGrid = ({ capsules, isLoading }) => {
                   {capsule.serial} {capsule.type}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="flex flex-col items-start">
-                Status: {capsule.status}
+              <CardContent className="flex items-start gap-x-1">
+                <label className="font-medium">Status:</label>
+                <p>
+                  <StatusTag status={capsule.status} />
+                </p>
               </CardContent>
-              <CardContent className="flex flex-col items-start text-left">
-                Last Update: {capsule.last_update || '-'}
+              <CardContent className="flex flex-col text-left gap-x-1">
+                <label className="font-medium whitespace-nowrap">
+                  Last Update:
+                </label>
+                <p>{capsule.last_update || '-'}</p>
               </CardContent>
             </Card>
           </DialogTrigger>
@@ -55,13 +78,44 @@ const CapsuleGrid = ({ capsules, isLoading }) => {
                 {capsule.serial} {capsule.type}
               </DialogTitle>
               <DialogDescription className="flex flex-col gap-y-4 pt-4">
-                <p>Serial: {capsule.serial}</p>
-                <p>Type: {capsule.type}</p>
-                <p>Status: {capsule.status}</p>
-                <p>Reuse Count: {capsule.reuse_count}</p>
-                <p>Water Landings: {capsule.water_landings}</p>
-                <p>Land Landings: {capsule.land_landings}</p>
-                <p>Last Update: {capsule.last_update || '-'}</p>
+                <div className="flex gap-x-1">
+                  <label className="font-normal">Serial:</label>
+                  <p className="text-black font-medium">{capsule.serial}</p>
+                </div>
+                <div className="flex gap-x-1">
+                  <label className="font-normal">Type:</label>
+                  <p className="text-black font-medium">{capsule.type}</p>
+                </div>
+                <div className="flex gap-x-1">
+                  <label className="font-normal">Status:</label>
+                  <p>
+                    <StatusTag status={capsule.status} />
+                  </p>
+                </div>
+                <div className="flex gap-x-1">
+                  <label className="font-normal">Reuse Count:</label>
+                  <p className="text-black font-medium">
+                    {capsule.reuse_count}
+                  </p>
+                </div>
+                <div className="flex gap-x-1">
+                  <label className="font-normal">Water Landings:</label>
+                  <p className="text-black font-medium">
+                    {capsule.water_landings}
+                  </p>
+                </div>
+                <div className="flex gap-x-1">
+                  <label className="font-normal">Land Landings:</label>
+                  <p className="text-black font-medium">
+                    {capsule.land_landings}
+                  </p>
+                </div>
+                <div className="flex gap-x-1">
+                  <label className="font-normal">Last Update:</label>
+                  <p className="text-black font-medium">
+                    {capsule.last_update || '-'}
+                  </p>
+                </div>
               </DialogDescription>
             </DialogHeader>
           </DialogContent>
