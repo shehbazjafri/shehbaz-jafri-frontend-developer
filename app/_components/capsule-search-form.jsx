@@ -33,7 +33,10 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-x-7 py-1">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col lg:flex-row items-start lg:items-center gap-4 py-1"
+    >
       <div className="flex flex-col items-start">
         <label
           htmlFor="status"
@@ -50,7 +53,7 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
             });
           }}
         >
-          <SelectTrigger className="w-[30rem]">
+          <SelectTrigger className="w-[15rem] lg:w-[30rem]">
             <SelectValue placeholder="Select Status" />
           </SelectTrigger>
           <SelectContent>
@@ -96,7 +99,7 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
       <Button
         type="submit"
         variant="outline"
-        className="bg-primaryBlue text-white self-end"
+        className="bg-primaryBlue text-white lg:self-end"
         disabled={isLoading}
       >
         Search

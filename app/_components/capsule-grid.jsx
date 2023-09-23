@@ -16,7 +16,7 @@ import {
 const CapsuleGrid = ({ capsules, isLoading }) => {
   if (isLoading) {
     return (
-      <div className="grid gap-4 grid-cols-4 2xl:grid-cols-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 2xl:grid-cols-6 gap-4">
         <div className="animate-pulse bg-gray-200 rounded-md h-36 w-full"></div>
         <div className="animate-pulse bg-gray-200 rounded-md h-36 w-full"></div>
         <div className="animate-pulse bg-gray-200 rounded-md h-36 w-full"></div>
@@ -28,7 +28,7 @@ const CapsuleGrid = ({ capsules, isLoading }) => {
   }
 
   return (
-    <div className="grid gap-4 grid-cols-4 2xl:grid-cols-6">
+    <div className="grid gap-4 grid-cols-1 lg:grid-cols-4 2xl:grid-cols-6">
       {capsules.map((capsule) => (
         <Dialog key={capsule.id}>
           <DialogTrigger>

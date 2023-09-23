@@ -52,7 +52,7 @@ export default function Home() {
     try {
       setIsLoading(true);
       const queryString = new URLSearchParams({ ...filters, page }).toString();
-      const apiUrl = `http://localhost:3000/api/capsules?${queryString}`;
+      const apiUrl = `/api/capsules?${queryString}`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       setCapsules(data?.capsules?.docs || []);
@@ -79,28 +79,32 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col">
-      <section className="flex justify-between items-center rounded-3xl px-32 pt-14 shadow-sm">
-        <div className="flex flex-col">
-          <h1 className="text-6xl font-bold text-white">
+    <main className="flex min-h-screen flex-col overflow-hidden">
+      <section className="flex flex-col-reverse lg:flex-row justify-between items-start lg:items-center rounded-3xl lg:px-32 pt-14 shadow-sm">
+        <div className="flex flex-col pl-8">
+          <h1 className="text-3xl lg:text-6xl mt-10 lg:mt-0  font-bold text-white">
             Welcome to the
             <br />
             <span className="text-textBlue">space showcase.</span>
           </h1>
-          <p className="text-lg font-extralight text-white mt-10 w-[80%]">
+          <p className="text-sm lg:text-lg font-extralight text-white mt-10 w-[80%]">
             Embark on a voyage through SpaceX&rsquo;s technological wonders.
             Join us as we uncover the engineering brilliance behind these
             spacecraft, forging the path to new horizons in the cosmos.
           </p>
-          <ArrowDownIcon className="text-white w-10 h-10 mt-10" />
+          <ArrowDownIcon className="text-white w-5 h-5 lg:w-10 lg:h-10 mt-10" />
         </div>
-        <Image src={spaceBg} alt="space" className="w-[500px] h-[460px]" />
+        <Image
+          src={spaceBg}
+          alt="space-rocket"
+          className="w-full h-[15rem] lg:w-[500px] lg:h-[460px]"
+        />
       </section>
       <section className="relative mt-24 h-full flex flex-col text-center items-center">
         <div className="absolute inset-0 bg-white transparent transform -skew-y-2 z-10"></div>
-        <div className="bg-white relative z-20 mt-24">
-          <h2 className="font-semibold text-4xl">Capsules</h2>
-          <p className="font-medium text-secondaryBlue mt-3 mb-12">
+        <div className="bg-white relative z-20 mt-10 mx-5 lg:mx-0 lg:mt-24">
+          <h2 className="font-semibold text-2xl lg:text-4xl">Capsules</h2>
+          <p className="font-medium text-secondaryBlue text-sm lg:text-base mt-3 mb-12">
             Search and explore latest information about SpaceX’s capsules
           </p>
           <CapsuleSearchForm
@@ -108,7 +112,7 @@ export default function Home() {
             isLoading={isLoading}
           />
         </div>
-        <div className="bg-transparent relative z-20 w-full pt-10 px-20 pb-10">
+        <div className="bg-transparent relative z-20 w-full pt-10 px-5 lg:px-20 pb-10">
           <CapsuleGrid capsules={capsules} isLoading={isLoading} />
           {totalPages > 1 && (
             <Pagination
@@ -119,7 +123,7 @@ export default function Home() {
           )}
         </div>
       </section>
-      <footer className="bg-bgBlue text-white text-center py-10">
+      <footer className="bg-bgBlue text-white text-center py-10 px-10">
         <p className="text-sm">
           Space Showcase. All rights reserved. &copy; Shehbaz Jafri{' '}
           {new Date().getFullYear()}

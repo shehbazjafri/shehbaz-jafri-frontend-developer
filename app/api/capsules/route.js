@@ -2,12 +2,15 @@ import { NextResponse } from 'next/server';
 
 export async function GET(request) {
   try {
+    // Input validation and sanitization
     const { searchParams } = new URL(request.url);
-    const status = searchParams.get('status');
-    const serial = searchParams.get('serial');
-    const type = searchParams.get('type');
-    const page = searchParams.get('page');
+    const page = parseInt(searchParams.get('page')) || 1;
+    const limit = 10;
+    const status = searchParams.get('status') || '';
+    const serial = searchParams.get('serial') || '';
+    const type = searchParams.get('type') || '';
 
+    // Construct the filter object
     const filter = {};
     if (status) {
       filter.status = status;
@@ -19,14 +22,17 @@ export async function GET(request) {
       filter.serial = serial;
     }
 
+    // Construct the API request
     const apiUrl = new URL('https://api.spacexdata.com/v4/capsules/query');
     const query = {
       query: filter,
       options: {
         page,
-        limit: 10,
+        limit,
       },
     };
+
+    // Send the API request
     const response = await fetch(apiUrl.toString(), {
       method: 'POST',
       headers: {
@@ -34,9 +40,18 @@ export async function GET(request) {
       },
       body: JSON.stringify(query),
     });
+
+    if (!response.ok) {
+      // Handle non-OK responses with appropriate status codes and messages
+      return NextResponse.error(
+        `API request failed with status: ${response.status}`
+      );
+    }
+
     const capsules = await response.json();
     return NextResponse.json({ capsules });
   } catch (error) {
-    return NextResponse.json({ error });
+    // Handle unexpected errors with informative messages
+    return NextResponse.error(`An error occurred: ${error.message}`);
   }
 }
