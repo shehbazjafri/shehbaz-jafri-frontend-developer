@@ -20,6 +20,7 @@ module.exports = {
         bgBlue: '#100627',
         skyBlue: '#D0ECEE',
         textBlue: '#6691FF',
+        primaryBlue: '#1E67D3',
         secondaryBlue: '#737288',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

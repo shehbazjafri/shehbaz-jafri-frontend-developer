@@ -42,6 +42,7 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
           Status
         </label>
         <Select
+          id="status"
           onValueChange={(value) => {
             setFilters({
               ...filters,
@@ -68,6 +69,7 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
           Serial
         </label>
         <Input
+          id="serial"
           type="text"
           name="serial"
           placeholder="Serial"
@@ -83,6 +85,7 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
           Type
         </label>
         <Input
+          id="type"
           type="text"
           name="type"
           placeholder="Type"
@@ -93,7 +96,7 @@ const CapsuleSearchForm = ({ onSubmit, isLoading }) => {
       <Button
         type="submit"
         variant="outline"
-        className="bg-textBlue text-white self-end"
+        className="bg-primaryBlue text-white self-end"
         disabled={isLoading}
       >
         Search
