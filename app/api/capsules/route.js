@@ -4,7 +4,7 @@ export async function GET(request) {
   // Input validation and sanitization
   const { searchParams } = new URL(request.url);
   const page = parseInt(searchParams.get('page')) || 1;
-  const limit = 10;
+  const limit = 12;
   const status = searchParams.get('status') || '';
   const serial = searchParams.get('serial') || '';
   const type = searchParams.get('type') || '';
